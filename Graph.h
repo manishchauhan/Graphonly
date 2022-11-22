@@ -40,5 +40,6 @@ public:
 	void findInOutDegree();
 	vector<int> TopologicalSortBFS();//Kahns algorithm for Topological Sorting 
 	void displayTopologicalSortBFS();
+	bool isBipartite();
 };
 

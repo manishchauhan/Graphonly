@@ -167,4 +167,44 @@ void Graph::displayTopologicalSortBFS()
 		cout << s << "->";
 	}
 }
+bool Graph::isBipartite()
+{
+	//get source index which is one 
+	int src_index = 0;
+	//create a color Vec
+	vector<int> colorsVec(getGraphSize(),0);
+	//1 for red color -1 for green
+	colorsVec.at(src_index) = 1; //we would take red
+	queue<int> Queue;
+	Queue.push(src_index);
+	for (int i = 0;i < colorsVec.size();i++)
+	{
+		if (colorsVec.at(i) == 1 || colorsVec.at(i) == -1)
+		{
+			continue;
+		}
+		while (!Queue.empty())
+		{
+			int parentIndex = Queue.front();
+			Queue.pop();
+			for (auto itr = EdgesVector.at(parentIndex).begin();itr != EdgesVector.at(parentIndex).end();
+				itr++)
+			{
+				
+				if (colorsVec.at(itr->dest) == 0)
+				{
+					colorsVec.at(itr->dest) = -colorsVec.at(parentIndex);
+					Queue.push(itr->dest);
+				}
+				else if (colorsVec.at(parentIndex) == colorsVec.at(itr->dest))
+				{
+					return false;
+				}
+			}
+		}
+		
+			
+	}
+	return true;
+}
 //Topo Logical sort
